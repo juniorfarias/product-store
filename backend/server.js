@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import Product from "../models/product.model.js";
-import mongoose from "mongoose";
+import mongoose from "mongoose"; // MongoDB Module
 
 dotenv.config();
 
