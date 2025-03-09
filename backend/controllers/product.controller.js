@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import mongoose from "mongoose";
 
 export const getProducts = async (req, res) => {
   try {
@@ -48,6 +49,7 @@ export const updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
+    console.log("Product updated");
     res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     console.log("Error to update a product: ", error.message);
@@ -64,7 +66,8 @@ export const deleteProduct = async (req, res) => {
 
   try {
     await Product.findByIdAndDelete(id);
-    res.status(200).json({ success: true, data: "Product deleted" });
+    console.log("Product deleted");
+    res.status(200).json({ success: true, message: "Product deleted" });
   } catch (error) {
     console.log("Error to delete a product: ", error.message);
     res.status(500).json({ success: false, error: "Server error" });
