@@ -28,22 +28,23 @@ const HomePage = () => {
             <ProductCard key={product._id} product={product} />
           ))}
         </SimpleGrid>
-
-        <Text
-          fontSize={"x1"}
-          textAlign={"center"}
-          fontWeight={"bold"}
-          color={"gray.500"}
-        >
-          No products found 😥{" "}
+        {products.length === 0 && (
           <Text
-            as="span"
-            color="blue.500"
-            _hover={{ textDecoration: "underline" }}
+            fontSize={"x1"}
+            textAlign={"center"}
+            fontWeight={"bold"}
+            color={"gray.500"}
           >
-            <Link to={"/create"}>Create a product</Link>
+            No products found 😥{" "}
+            <Text
+              as="span"
+              color="blue.500"
+              _hover={{ textDecoration: "underline" }}
+            >
+              <Link to={"/create"}>Create a product</Link>
+            </Text>
           </Text>
-        </Text>
+        )}
       </VStack>
     </Container>
   );
