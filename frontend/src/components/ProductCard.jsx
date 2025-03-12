@@ -35,7 +35,6 @@ const ProductCard = ({ product }) => {
     console.log(updatedProduct);
     console.log(productId);
     const { success, message } = await updateProduct(productId, updatedProduct);
-    onClose();
     if (!success) {
       toast({
         title: "Error",
@@ -45,6 +44,7 @@ const ProductCard = ({ product }) => {
         isClosable: true,
       });
     } else {
+      onClose();
       toast({
         title: "Success",
         description: "Product update successfully",
@@ -74,6 +74,24 @@ const ProductCard = ({ product }) => {
         isClosable: true,
       });
       console.log(message);
+    }
+  };
+
+  const handleOnClose = (productUpdated) => {
+    if (
+      !productUpdated.name ||
+      !productUpdated.price ||
+      !productUpdated.image
+    ) {
+      toast({
+        title: "Error",
+        description: "Please fill all the fields",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      onClose();
     }
   };
 
@@ -110,11 +128,10 @@ const ProductCard = ({ product }) => {
           />
         </HStack>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Update Product</ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>
               <Input
@@ -159,7 +176,10 @@ const ProductCard = ({ product }) => {
             >
               Update
             </Button>
-            <Button variant="ghost" onClick={onClose}>
+            <Button
+              variant="ghost"
+              onClick={() => handleOnClose(updatedProduct)}
+            >
               Cancel
             </Button>
           </ModalFooter>

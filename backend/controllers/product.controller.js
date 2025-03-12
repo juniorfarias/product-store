@@ -45,6 +45,12 @@ export const updateProduct = async (req, res) => {
     return res.status(404).json({ success: false, error: "Product not found" });
   }
 
+  if (!product.name || !product.price || !product.image) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Please fill all the fields" });
+  }
+
   try {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,

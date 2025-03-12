@@ -38,6 +38,7 @@ export const useProductStore = create((set) => ({
     console.log(data);
     return { success: true, message: data.message };
   },
+
   updateProduct: async (productId, updatedProduct) => {
     const res = await fetch(`/api/products/${productId}`, {
       method: "PUT",
@@ -48,7 +49,7 @@ export const useProductStore = create((set) => ({
     });
     const data = await res.json();
     if (!data.success) {
-      return { success: false, message: data.message };
+      return { success: false, message: "Please fill all the fields" };
     }
     set((state) => ({
       products: state.products.map((product) => {
